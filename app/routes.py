@@ -7,9 +7,9 @@ from app.models import User, Post
 @app.route('/')
 @app.route('/index')
 def index():
-    user={'username': 'Miguel'}
+    # user={'username': 'Miguel'}
     posts = Post.query.all() 
-    return render_template('index.html', title='Home', user=user, posts=posts)
+    return render_template('index.html', title='Home', posts=posts)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
