@@ -10,18 +10,23 @@ from werkzeug.urls import url_parse
 @login_required
 def index():
     posts = Post.query.all() 
-    return render_template('index.html', title='Home', posts=posts)
+    return render_template('index.html', title='Home Page', posts=posts)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    #redirect if user already logged in
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
+    #parse form response data
     if form.validate_on_submit():
+        #find user in db
         user = User.query.filter_by(username = form.username.data).first()
+        # checks if response data is valid
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
+        # logs in valid user
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netlog != '':
