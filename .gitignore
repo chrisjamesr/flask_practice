@@ -4,3 +4,4 @@ __pycache__/
 .flaskenv
 app.db
 # config.py
+/logs
