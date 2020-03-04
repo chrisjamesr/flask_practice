@@ -105,7 +105,7 @@ def unfollowed(username):
     if user is None:
         flash('User {} not found.'.format(username))
         return redirect(url_for('index'))
-    if user = current_user:
+    if user == current_user:
         flash('You cannon unfollow yourself!')
         return redirect(url_for('user', username=username))
     current_user.unfollow(user)
