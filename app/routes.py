@@ -55,6 +55,11 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route('/users')
+def users():
+    users = User.query.all()
+    return render_template('users.html', users=users)
+
 @app.route('/user/<username>')
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
@@ -63,6 +68,7 @@ def user(username):
         {'author': user, 'body': 'Test Post #2'}
     ]
     return render_template('user.html', user=user, posts=posts)
+   
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
